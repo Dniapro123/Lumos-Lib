@@ -1,0 +1,90 @@
+.profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #4b0082, #8a2be2);
+  color: #fff;
+}
+
+.profile-box {
+  background-color: #111;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 500px;
+}
+
+.profile-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #222;
+  color: #eee;
+  font-size: 14px;
+}
+
+.input-group input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #00cc5c;
+}
+
+.action-button,
+.delete-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.action-button {
+  background-color: #00cc5c;
+  color: #111;
+}
+
+.action-button:hover {
+  background-color: #00b34d;
+}
+
+.delete-button {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #c9302c;
+}
+
+.pref-list {
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+  color: #eee;
+}
+.pref-list li {
+  background: #222;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}

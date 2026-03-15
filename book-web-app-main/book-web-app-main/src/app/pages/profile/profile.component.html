@@ -1,0 +1,26 @@
+<div class="profile-container" *ngIf="username">
+  <div class="profile-box animate">
+    <h2>Welcome, {{ username }}</h2>
+    <div class="input-group">
+      <label>New Username</label>
+      <input [(ngModel)]="newUsername" />
+    </div>
+    <div class="input-group">
+      <label>Favourite categories (comma separated)</label>
+      <input [(ngModel)]="categories" />
+    </div>
+    <div class="input-group">
+      <label>Favourite book</label>
+      <input [(ngModel)]="favouriteBook" />
+    </div>
+    <button class="action-button" (click)="addPreferences()">Add Preferences</button>
+    <ul class="pref-list" *ngIf="addedPreferences.length">
+      <li *ngFor="let p of addedPreferences">
+        <strong>Categories:</strong> {{ p.categories.join(', ') }} -
+        <strong>Favourite Book:</strong> {{ p.favouriteBook }}
+      </li>
+    </ul>
+    <button class="action-button" (click)="save()">Save</button>
+    <button class="delete-button" (click)="deleteAccount()">Delete Account</button>
+  </div>
+</div>

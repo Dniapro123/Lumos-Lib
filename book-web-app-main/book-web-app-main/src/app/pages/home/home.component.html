@@ -1,0 +1,49 @@
+<!-- HERO ---------------------------------------------------------->
+<div class="hero">
+  <div class="hero-content">
+    <h1>📚 Twoja cyfrowa biblioteka</h1>
+    <p>Przeglądaj, odkrywaj i czytaj tysiące książek – gdzie chcesz, kiedy chcesz.</p>
+    <a routerLink="/catalogue" class="cta-btn">Zobacz katalog</a> <!-- ✅ -->
+  </div>
+</div>
+
+<!-- KATEGORIE ----------------------------------------------------->
+<section class="category-section">
+  <h2>Kategorie</h2>
+
+  <div class="categories">
+    <a class="category-card" [routerLink]="['/catalogue', 'Literatura']">🌍 Literatura</a>
+    <a class="category-card" [routerLink]="['/catalogue', 'Nauka']">🔬 Nauka</a>
+    <a class="category-card" [routerLink]="['/catalogue', 'Fantastyka']">🚀 Fantastyka</a>
+    <a class="category-card" [routerLink]="['/catalogue', 'Psychologia']">🧠 Psychologia</a>
+  </div>
+</section>
+
+
+<!-- POPULARNE ----------------------------------------------------->
+<section class="book-section">
+  <h2>Popularne książki</h2>
+  <div class="book-grid">
+    <div class="book-card" *ngFor="let b of books">
+      <img [src]="b.cover" alt="Okładka" />
+      <h4>{{ b.title }}</h4>
+      <p>{{ b.author }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES / TESTIMONIALS  (bez zmian) -------------------------->
+<!-- … -->
+
+<!-- FAQ (akordeon) ----------------------------------------------->
+<section class="faq-section">
+  <h2>FAQ</h2>
+  <div class="faq-grid">
+    <article class="faq-item" *ngFor="let f of faq">
+      <button class="faq-toggle" (click)="f.open = !f.open">
+        {{ f.q }} <span [class.rotate]="f.open">⌄</span>
+      </button>
+      <div class="faq-answer" *ngIf="f.open">{{ f.a }}</div>
+    </article>
+  </div>
+</section>

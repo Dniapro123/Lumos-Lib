@@ -1,0 +1,21 @@
+<div class="login-container">
+    <div class="login-box">
+      <h2>Skontaktuj się z nami</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <label for="name">Imię i nazwisko</label>
+          <input type="text" id="name" [(ngModel)]="name" name="name" required>
+        </div>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email" required>
+        </div>
+        <div class="input-group">
+          <label for="message">Wiadomość</label>
+          <textarea id="message" [(ngModel)]="message" name="message" rows="5" required></textarea>
+        </div>
+        <button class="login-button" type="submit">Wyślij</button>
+      </form>
+    </div>
+  </div>
+  

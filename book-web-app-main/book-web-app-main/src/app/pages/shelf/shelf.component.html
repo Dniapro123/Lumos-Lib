@@ -1,0 +1,16 @@
+<div class="shelf-page" *ngIf="shelf">
+  <h2>{{ shelf.name }}</h2>
+  <button *ngIf="!shelf.isPublic" (click)="shareShelf()">Share Shelf</button>
+  <a *ngIf="shelf.isPublic" [href]="'/shared/' + shelf.shareToken" target="_blank">Share Link</a>
+  <button *ngIf="!selectMode" (click)="toggleSelectMode()">Select Books</button>
+  <div *ngIf="selectMode" class="select-actions">
+    <button (click)="deleteSelected()">Delete Selected</button>
+    <button (click)="toggleSelectMode()">Cancel</button>
+  </div>
+  <div class="shelf-books">
+    <div class="book-wrapper" *ngFor="let b of shelf.books">
+      <input *ngIf="selectMode" type="checkbox" (change)="toggleBook(b.id, $event.target.checked)">
+      <app-book-card [book]="b"></app-book-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+.public-profile {
+  padding: 2rem;
+  color: #fff;
+}
+.avatar {
+  width: 80px;
+  height: 80px;
+}
+.shelf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.shelf {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.shelf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shelf-books {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+.shelf-books app-book-card {
+  flex: 0 0 150px;
+}

@@ -1,0 +1,28 @@
+<div class="login-container">
+  <div class="login-box animate">
+    <h2>Zaloguj się</h2>
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="Email" required />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Hasło</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Password" required />
+      </div>
+
+    <button type="submit" class="login-button" [disabled]="!loginForm.valid">Zaloguj się</button>
+  </form>
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  <p class="register-prompt">
+    Nie masz konta?
+    <a routerLink="/register">Zarejestruj się</a>
+  </p>
+  <p class="register-prompt">
+    <a routerLink="/password-reset">Forgot password?</a>
+  </p>
+
+  </div>
+</div>
+

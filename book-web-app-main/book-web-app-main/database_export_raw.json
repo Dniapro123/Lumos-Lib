@@ -1,0 +1,109 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "testuser",
+      "email": "test@example.com",
+      "passwordHash": "$2b$10$Kg6wPfDtJcxDWS4HPyvrpexG7vHB/VLpw2LXqESvZIlxzc2HLhr5G",
+      "createdAt": "2025-04-16T09:06:14.880Z",
+      "userBooks": []
+    },
+    {
+      "id": 2,
+      "username": "OlehKozak",
+      "email": "okozak12@gmail.com",
+      "passwordHash": "$2b$10$yKrA.fPDR8oS4r0CEhspueIzCIf6csD6ljRanAItzHLdlvfvIw/em",
+      "createdAt": "2025-04-16T09:27:42.257Z",
+      "userBooks": []
+    },
+    {
+      "id": 3,
+      "username": "Oleh Kozak",
+      "email": "okozak10@gmail.com",
+      "passwordHash": "$2b$10$tZLEPXsrJDh2oqhDulJBM.NBBl.o.ry3PakW41IpqqWh6g5shdWb.",
+      "createdAt": "2025-04-16T09:27:57.772Z",
+      "userBooks": []
+    },
+    {
+      "id": 7,
+      "username": "Ulad Budziankou",
+      "email": "popa@gmail.com",
+      "passwordHash": "$2b$10$d3b9GhFc5DV67motF.Di8udGgy6Ji9NECgF9vBfe4U2SOFkWrMzq.",
+      "createdAt": "2025-04-16T09:29:32.221Z",
+      "userBooks": []
+    }
+  ],
+  "books": [
+        {
+            "id": 1,
+            "googleBooksId": "gID1",
+            "title": "Foundation",
+            "subtitle": "The Beginning",
+            "description": "Sci-fi classic.",
+            "publishedDate": "1951-01-01T00:00:00.000Z",
+            "pageCount": 255,
+            "language": "en",
+            "thumbnailUrl": "http://example.com/foundation.jpg",
+            "previewLink": "http://example.com/preview/foundation",
+            "infoLink": "http://example.com/info/foundation",
+            "averageRating": 4.5,
+            "ratingsCount": 2000,
+            "isbn10": "1234567890",
+            "isbn13": "123-4567890123"
+        },
+        {
+            "id": 2,
+            "googleBooksId": "gID2",
+            "title": "Harry Potter and the Sorcerer's Stone",
+            "description": "Fantasy adventure.",
+            "publishedDate": "1997-06-26T00:00:00.000Z",
+            "pageCount": 309,
+            "language": "en",
+            "thumbnailUrl": "http://example.com/hp1.jpg",
+            "previewLink": "http://example.com/preview/hp1",
+            "infoLink": "http://example.com/info/hp1",
+            "averageRating": 4.8,
+            "ratingsCount": 5000,
+            "isbn10": "0439708184",
+            "isbn13": "978-0439708180"
+        }
+    ],
+  "categories": [
+        {
+          "id": 1,
+          "name": "Fiction"
+        },
+        {
+          "id": 2,
+          "name": "Science"
+        },
+        {
+          "id": 3,
+          "name": "Fantasy"
+        }
+    ],
+    "authors": [
+        {
+          "id": 1,
+          "name": "Isaac Asimov"
+        },
+        {
+          "id": 2,
+          "name": "J.K. Rowling"
+        }
+    ],
+    "user_books": [
+      {"userId": 1, "bookId": 1, "status": "read", "addedAt": "2025-04-16T09:29:32.221Z"},
+      {"userId": 2, "bookId": 2, "status": "want to read", "addedAt": "2025-04-16T10:53:12.241Z"}
+  ],
+  "book_author": [
+      {"bookId": 1, "authorId": 1},
+      {"bookId": 2, "authorId": 2}
+  ],
+  "book_category": [
+      {"bookId": 1, "categoryId": 1},
+      {"bookId": 1, "categoryId": 2},
+      {"bookId": 2, "categoryId": 1},
+      {"bookId": 2, "categoryId": 3}
+  ]
+}

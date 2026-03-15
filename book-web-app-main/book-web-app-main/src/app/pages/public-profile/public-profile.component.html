@@ -1,0 +1,15 @@
+<div *ngIf="profile" class="public-profile library-page">
+  <h2>{{ profile.username }}'s Public Shelves</h2>
+  <img class="avatar" [src]="'https://api.dicebear.com/6.x/initials/svg?seed=' + profile.username" alt="avatar" />
+  <div class="shelf-list">
+    <div class="shelf" *ngFor="let s of profile.shelves">
+      <div class="shelf-header">
+        <h3>{{ s.name }}</h3>
+        <a class="share-link" [routerLink]="'/shared/' + s.shareToken" target="_blank">Open Shelf</a>
+      </div>
+      <div class="shelf-books">
+        <app-book-card *ngFor="let b of s.books" [book]="b"></app-book-card>
+      </div>
+    </div>
+  </div>
+</div>

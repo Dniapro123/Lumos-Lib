@@ -1,0 +1,83 @@
+<div class="library-page" *ngIf="username">
+  <h2>{{ username }}'s Library</h2>
+
+
+  <div class="controls">
+
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search books" />
+    <select [(ngModel)]="selectedCategory">
+      <option value="">All Categories</option>
+      <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+    </select>
+  </div>
+
+
+  <section class="recent-section">
+    <h3>Recently Added</h3>
+    <div class="books-grid">
+      <app-book-card *ngFor="let b of recentlyAddedBooks() | slice:0:5" [book]="b"></app-book-card>
+    </div>
+  </section>
+
+
+  <section *ngIf="shelves.length" class="shelf-preview">
+    <div class="shelf-header">
+      <h3>Your Shelves</h3>
+      <a *ngIf="!showAllShelves" (click)="showAllShelves = true" class="see-all">See all shelves</a>
+    </div>
+    <div class="shelf-list">
+      <div class="shelf" *ngFor="let s of shelves | slice:0:(showAllShelves ? shelves.length : 6)">
+        <div class="shelf-title">
+          <h4>{{ s.name }}</h4>
+          <div class="shelf-actions">
+            <a class="open-btn" [routerLink]="['/shelf', s.id]">Open</a>
+            <button class="edit-btn" (click)="openEdit(s)">Edit</button>
+            <button *ngIf="!s.isPublic" class="share-btn" (click)="shareShelf(s)">Share</button>
+            <a *ngIf="s.isPublic" class="share-link" [href]="'/shared/' + s.shareToken" target="_blank">Share Link</a>
+          </div>
+        </div>
+        <div class="shelf-books">
+          <app-book-card *ngFor="let sb of s.books" [book]="sb"></app-book-card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="allBooks.length" class="all-books-section">
+    <h3>All Books</h3>
+    <div class="books-grid">
+      <div class="all-book" *ngFor="let b of allBooks">
+        <app-book-card [book]="b"></app-book-card>
+        <button (click)="deleteFromAll(b.id)">Remove</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="create-shelf">
+    <input type="text" [(ngModel)]="newShelfName" placeholder="New shelf name" />
+    <button (click)="createShelf()">Create Shelf</button>
+  </div>
+
+  <div class="edit-dialog" *ngIf="editingShelf">
+    <div class="dialog-content">
+      <h3>Edit Shelf</h3>
+      <label>
+        Name:
+        <input [(ngModel)]="editName" />
+      </label>
+      <label>
+        Visibility:
+        <select [(ngModel)]="editPublic">
+          <option [ngValue]="false">Private</option>
+          <option [ngValue]="true">Public</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button class="action-button filled" (click)="saveEdit()">Save</button>
+        <button class="action-button delete" (click)="deleteShelf()">Delete</button>
+        <button class="action-button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+</div>

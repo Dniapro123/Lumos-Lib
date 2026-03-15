@@ -1,0 +1,48 @@
+.shelf-page {
+  padding: 2rem;
+  color: #fff;
+}
+
+.shelf-books {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.book-wrapper {
+  display: flex;
+  align-items: center;
+
+  gap: 0.5rem;
+}
+
+.book-wrapper app-book-card {
+  flex: 0 0 150px;
+  width: 150px;
+  max-width: 150px;
+}
+
+.select-actions {
+  margin: 1rem 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.shelf-page button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #00cc5c;
+  color: #111;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.shelf-page button:hover {
+  background: #00b34d;
+}
+
+.select-actions button:first-child {
+  background: #b00020;
+  color: #fff;
+}
