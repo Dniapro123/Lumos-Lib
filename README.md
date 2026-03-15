@@ -1,5 +1,13 @@
-# OnlineBiblioteka
+# LumosLib
+LumosLib is a web-based library app built with Angular that uses the **Google Books API** to search and browse books. It lets users create and manage **personal book lists** (e.g., “To Read”, “Reading”, “Finished”), add **reviews/ratings**, and quickly **sort and filter** books for a smooth browsing experience.
 
+**Key features**
+- Book search and details powered by **Google Books API**
+- Create and manage custom book lists
+- Add reviews/ratings and notes for books
+- Convenient sorting and filtering (e.g., title, author, rating, date added)
+
+---
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
 
 ## Development server
