@@ -1,0 +1,19 @@
+/* Reuse login styles */
+@import '../login/login.component.css';
+
+/* Add styles for textarea */
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background-color: #222;
+  color: #eee;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.input-group textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #00cc5c;
+}
