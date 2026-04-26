@@ -10,8 +10,20 @@ const userRoutes = require('./routes/user');
 
 app.use(cors()); // Allow cross-origin requests
 app.use(express.json());
+const DEMO_MODE = process.env.DEMO_MODE === 'true';
+
+const blockDemoAuth = (req, res, next) => {
+  if (DEMO_MODE) {
+    return res.status(403).json({
+      message: 'Logowanie i rejestracja są wyłączone w wersji demonstracyjnej.',
+    });
+  }
+
+  next();
+};
+
 app.use('/api', userRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', blockDemoAuth, authRoutes);
 app.use('/api/books', booksRoutes);
 const GOOGLE_BOOKS_API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 

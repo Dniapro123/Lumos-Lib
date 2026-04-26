@@ -2,38 +2,41 @@
   <h1 class="catalog-title">Katalog książek</h1>
 
   <!-- KATEGORIE (filtry) -->
-  <div class="cat-filters">
-    <button
-      *ngFor="let c of categories"
-      (click)="setCategory(c)"
-      [class.active]="selectedCategory === c">
-      {{ c }}
-    </button>
-    <button
-      *ngIf="selectedCategory"
-      (click)="setCategory('')">
-      Reset
-    </button>
-  </div>
+<div class="cat-filters">
+  <button
+    *ngFor="let c of categories"
+    (click)="setCategory(c)"
+    [class.active]="selectedCategory === c">
+    {{ c }}
+  </button>
+
+  <button
+    *ngIf="selectedCategory"
+    (click)="setCategory('')">
+    Wyczyść
+  </button>
+</div>
 
   <!-- SEARCH CONTROLS -->
-  <div class="search-controls">
-    <input [(ngModel)]="searchTitle"  placeholder="Title"  class="search-input"/>
-    <input [(ngModel)]="searchAuthor" placeholder="Author" class="search-input"/>
-    <input [(ngModel)]="selectedCategory" placeholder="Category" class="search-input"/>
-    <button (click)="searchBooks()" class="search-button">Search</button>
+ <div class="search-controls">
+  <input [(ngModel)]="searchTitle" placeholder="Tytuł" class="search-input" />
+  <input [(ngModel)]="searchAuthor" placeholder="Autor" class="search-input" />
 
-    <select [(ngModel)]="sortOption" class="sort-select">
-      <option value="titleAsc">Title A–Z</option>
-      <option value="titleDesc">Title Z–A</option>
-      <option value="authorAsc">Author A–Z</option>
-      <option value="authorDesc">Author Z–A</option>
-      <option value="newest">Newest First</option>
-      <option value="oldest">Oldest First</option>
-      <option value="rating">Highest Rating</option>
-      <option value="reviews">Most Reviewed</option>
-    </select>
-  </div>
+  <button (click)="searchBooks()" class="search-button">
+    Szukaj
+  </button>
+
+  <select [(ngModel)]="sortOption" class="sort-select">
+    <option value="titleAsc">Tytuł A–Z</option>
+    <option value="titleDesc">Tytuł Z–A</option>
+    <option value="authorAsc">Autor A–Z</option>
+    <option value="authorDesc">Autor Z–A</option>
+    <option value="newest">Od najnowszych</option>
+    <option value="oldest">Od najstarszych</option>
+    <option value="rating">Najwyżej oceniane</option>
+    <option value="reviews">Najwięcej recenzji</option>
+  </select>
+</div>
 
   <!-- LISTA KSIĄŻEK -->
   <div class="book-grid">

@@ -38,7 +38,10 @@ export class ShelfComponent implements OnInit {
       error: err => console.error('Failed to share shelf', err)
     });
   }
-
+onBookCheckboxChange(bookId: string, event: Event): void {
+  const input = event.target as HTMLInputElement;
+  this.toggleBook(bookId, input.checked);
+}
   toggleSelectMode(): void {
     this.selectMode = !this.selectMode;
     if (!this.selectMode) {

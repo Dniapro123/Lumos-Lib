@@ -9,7 +9,10 @@
   </div>
   <div class="shelf-books">
     <div class="book-wrapper" *ngFor="let b of shelf.books">
-      <input *ngIf="selectMode" type="checkbox" (change)="toggleBook(b.id, $event.target.checked)">
+      <input
+  type="checkbox"
+  (change)="onBookCheckboxChange(b.id, $event)"
+>
       <app-book-card [book]="b"></app-book-card>
     </div>
   </div>

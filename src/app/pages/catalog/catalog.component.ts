@@ -20,9 +20,22 @@ import { Book }              from '../../shared/components/book';
     BookCardComponent,
   ],
 })
+
+
 export class CatalogComponent implements OnInit {
   /* dane */
   books: Book[] = [];
+
+private readonly categoryApiMap: Record<string, string> = {
+  Literatura: 'fiction',
+  Nauka: 'science',
+  Fantastyka: 'fantasy',
+  Psychologia: 'psychology',
+  Historia: 'history',
+  Biznes: 'business',
+  Informatyka: 'computers',
+  Biografia: 'biography',
+};
 
   /* pola wyszukiwania */
   searchTitle = '';
@@ -40,8 +53,16 @@ export class CatalogComponent implements OnInit {
   apiUrl = 'http://localhost:3000';
 
   /* stała lista kategorii  (używana również w HomeComponent) */
-  readonly categories = ['Literatura', 'Nauka', 'Fantastyka', 'Psychologia'];
-
+ readonly categories = [
+  'Literatura',
+  'Nauka',
+  'Fantastyka',
+  'Psychologia',
+  'Historia',
+  'Biznes',
+  'Informatyka',
+  'Biografia',
+];
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   /* ---------------------- INIT ---------------------- */
@@ -60,7 +81,10 @@ export class CatalogComponent implements OnInit {
     const qParts = [];
     if (this.searchTitle.trim())  qParts.push(`intitle:${this.searchTitle.trim()}`);
     if (this.searchAuthor.trim()) qParts.push(`inauthor:${this.searchAuthor.trim()}`);
-    if (this.selectedCategory)    qParts.push(`subject:${this.selectedCategory}`);
+    if (this.selectedCategory) {
+      const apiCategory = this.categoryApiMap[this.selectedCategory] || this.selectedCategory;
+      qParts.push(`subject:${apiCategory}`);
+    }
     const q = qParts.join('+');
 
     if (!q) { this.loadFeatured(); return; }
@@ -69,43 +93,77 @@ export class CatalogComponent implements OnInit {
     this.startIndex = 0;
     this.lastQuery = q;
 
-    this.http.get<any>(`${this.apiUrl}/api/books/search?q=${encodeURIComponent(q)}&startIndex=0&maxResults=${this.maxResults}`)
-      .subscribe(res => {
-        const raw = Array.isArray(res) ? res : res.items || [];
-        this.books = this.mapToBooks(raw);
-        this.startIndex = this.books.length;
-        this.loading = false;
+    this.http
+      .get<any>(`${this.apiUrl}/api/books/search?q=${encodeURIComponent(q)}&startIndex=0&maxResults=${this.maxResults}`)
+      .subscribe({
+        next: (res) => {
+          const raw = Array.isArray(res) ? res : res.items || [];
+          this.books = this.mapToBooks(raw);
+          this.startIndex = this.maxResults;
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Błąd podczas wyszukiwania książek:', error);
+          this.books = [];
+          this.loading = false;
+        },
       });
   }
 
   /* --------------- POBIERZ KOLEJNE ------------------- */
-  loadMore(): void {
-    this.loading = true;
-    const endpoint = this.lastQuery
-      ? `${this.apiUrl}/api/books/search?q=${encodeURIComponent(this.lastQuery)}&startIndex=${this.startIndex}&maxResults=${this.maxResults}`
-      : `${this.apiUrl}/api/books/featured?startIndex=${this.startIndex}&maxResults=${this.maxResults}`;
+ loadMore(): void {
+  if (this.loading) return;
 
-    this.http.get<any>(endpoint).subscribe(res => {
+  this.loading = true;
+
+  const currentStartIndex = this.startIndex;
+
+  const endpoint = this.lastQuery
+    ? `${this.apiUrl}/api/books/search?q=${encodeURIComponent(this.lastQuery)}&startIndex=${currentStartIndex}&maxResults=${this.maxResults}`
+    : `${this.apiUrl}/api/books/featured?startIndex=${currentStartIndex}&maxResults=${this.maxResults}`;
+
+  this.http.get<any>(endpoint).subscribe({
+    next: (res) => {
       const raw = Array.isArray(res) ? res : res.items || [];
-      this.books = [...this.books, ...this.mapToBooks(raw)];
-      this.startIndex += this.maxResults;
+      const newBooks = this.mapToBooks(raw);
+
+      this.books = this.mergeUniqueBooks(this.books, newBooks);
+
+      this.startIndex = currentStartIndex + this.maxResults;
       this.loading = false;
-    });
-  }
+    },
+    error: (error) => {
+      console.error('Błąd podczas pobierania kolejnych książek:', error);
+      this.loading = false;
+    },
+  });
+}
 
   /* --------------- FEATURED ------------------------- */
   loadFeatured(): void {
-    this.loading = true;
-    this.startIndex = 0;
-    this.http.get<any>(`${this.apiUrl}/api/books/featured?startIndex=0&maxResults=${this.maxResults}`)
-      .subscribe(res => {
+  if (this.loading) return;
+
+  this.loading = true;
+  this.startIndex = 0;
+
+  this.http
+    .get<any>(`${this.apiUrl}/api/books/featured?startIndex=0&maxResults=${this.maxResults}`)
+    .subscribe({
+      next: (res) => {
         const raw = Array.isArray(res) ? res : res.items || [];
         this.books = this.mapToBooks(raw);
         this.lastQuery = '';
-        this.startIndex = this.books.length;
+        this.startIndex = this.maxResults;
         this.loading = false;
-      });
-  }
+      },
+      error: (error) => {
+        console.error('Błąd podczas pobierania polecanych książek:', error);
+        this.books = [];
+        this.lastQuery = '';
+        this.loading = false;
+      },
+    });
+}
 
   /* --------------- SORT ----------------------------- */
   sortedBooks(): Book[] {
@@ -146,7 +204,17 @@ export class CatalogComponent implements OnInit {
         },
       }));
   }
+  private mergeUniqueBooks(existingBooks: Book[], newBooks: Book[]): Book[] {
+    const booksMap = new Map<string, Book>();
 
+    [...existingBooks, ...newBooks].forEach((book) => {
+      if (book.id) {
+        booksMap.set(book.id, book);
+      }
+    });
+
+    return Array.from(booksMap.values());
+  }
   /* --------------- UI: klik w filtr kategorii -------- */
   setCategory(cat: string): void {
     this.selectedCategory = cat;
