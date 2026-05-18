@@ -1,12 +1,39 @@
-# LumosLib
-LumosLib is a web-based library app built with Angular that uses the **Google Books API** to search and browse books. It lets users create and manage **personal book lists** (e.g., “To Read”, “Reading”, “Finished”), add **reviews/ratings**, and quickly **sort and filter** books for a smooth browsing experience.
+# Lumos-Lib 
 
-**Key features**
-- Book search and details powered by **Google Books API**
-- Create and manage custom book lists
-- Add reviews/ratings and notes for books
-- Convenient sorting and filtering (e.g., title, author, rating, date added)
+Lumos-Lib is a modern, high-performance **Full-Stack Web Application** designed for book enthusiasts. It allows users to search global databases, manage custom reading lists, and track their reading progress. 
 
+The project features a decoupled architecture with a reactive frontend and a secure backend API.
+
+##  Key Features
+- **Global Book Search:** Real-time search powered by integration with the **Google Books API**.
+- **Personal Library Management:** Create and curate custom lists (e.g., "To Read", "Reading", "Finished").
+- **Social Features:** Add personal reviews, star ratings, and custom reading notes.
+- **Advanced Filtering:** Instant frontend sorting and filtering by authors, categories, ratings, and dates.
+- **Secure Authentication:** User registration and stateful session management.
+
+##  Tech Stack
+
+### Frontend
+- **Framework:** Angular 19 (Reactive Forms, RxJS, HttpClient)
+- **Styling:** CSS3 / SCSS (Responsive Web Design)
+
+### Backend
+- **Runtime & Framework:** Node.js, Express.js
+- **ORM:** Prisma (Object-Relational Mapping)
+- **Database:** PostgreSQL / MySQL (managed via Prisma Client)
+
+##  Project Structure & Architecture
+
+```text
+Lumos-Lib/
+├── backend/          # Node.js + Express API server & Prisma ORM
+│   ├── routes/       # API endpoints (books, auth, users)
+│   ├── middleware/   # Request interception & Auth guards
+│   └── prisma/       # Database schemas & migrations
+└── src/              # Angular 19 Client application
+    ├── app/          # Core modules, components, and services
+    └── assets/       # Static assets and global styles
+```
 ---
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
 
@@ -24,13 +51,13 @@ Once the server is running, open your browser and navigate to `http://localhost:
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
+```
 ng generate component component-name
 ```
 
 For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
+```
 ng generate --help
 ```
 
