@@ -1,17 +1,19 @@
 {
-  "name": "online-biblioteka",
-  "version": "0.0.0",
- "scripts": {
-  "ng": "ng",
-  "start": "ng serve",
-  "start:backend": "node backend/server.js",
-  "dev:backend": "node backend/server.js",
-  "build": "ng build",
-  "watch": "ng build --watch --configuration development",
-  "test": "ng test",
-  "prisma:generate": "prisma generate",
-  "prisma:migrate": "prisma migrate dev"
-},
+  "name": "lumos-lib",
+  "version": "0.1.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "start:backend": "node backend/server.js",
+    "dev:backend": "node backend/server.js",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "postinstall": "prisma generate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:push": "prisma db push"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "^19.2.0",
@@ -50,17 +52,24 @@
     "ts-node": "^10.9.2",
     "typescript": "~5.7.2"
   },
-  "description": "This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.",
-  "main": "index.js",
+  "description": "LumosLib is an Angular web application for searching books and browsing book details using Google Books API.",
+  "main": "backend/server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/1kozak2/book-web-app.git"
+    "url": "git+https://github.com/Dniapro123/Lumos-Lib.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "angular",
+    "typescript",
+    "express",
+    "prisma",
+    "google-books-api",
+    "library-app"
+  ],
+  "author": "Dniapro123",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/1kozak2/book-web-app/issues"
+    "url": "https://github.com/Dniapro123/Lumos-Lib/issues"
   },
-  "homepage": "https://github.com/1kozak2/book-web-app#readme"
+  "homepage": "https://github.com/Dniapro123/Lumos-Lib#readme"
 }

@@ -1,52 +1,82 @@
 <div class="catalog-container">
   <h1 class="catalog-title">Katalog książek</h1>
 
-  <!-- KATEGORIE (filtry) -->
-<div class="cat-filters">
-  <button
-    *ngFor="let c of categories"
-    (click)="setCategory(c)"
-    [class.active]="selectedCategory === c">
-    {{ c }}
-  </button>
+  <div class="cat-filters">
+    <button
+      *ngFor="let category of categories"
+      type="button"
+      (click)="setCategory(category)"
+      [class.active]="selectedCategory === category"
+    >
+      {{ category }}
+    </button>
 
-  <button
-    *ngIf="selectedCategory"
-    (click)="setCategory('')">
-    Wyczyść
-  </button>
-</div>
-
-  <!-- SEARCH CONTROLS -->
- <div class="search-controls">
-  <input [(ngModel)]="searchTitle" placeholder="Tytuł" class="search-input" />
-  <input [(ngModel)]="searchAuthor" placeholder="Autor" class="search-input" />
-
-  <button (click)="searchBooks()" class="search-button">
-    Szukaj
-  </button>
-
-  <select [(ngModel)]="sortOption" class="sort-select">
-    <option value="titleAsc">Tytuł A–Z</option>
-    <option value="titleDesc">Tytuł Z–A</option>
-    <option value="authorAsc">Autor A–Z</option>
-    <option value="authorDesc">Autor Z–A</option>
-    <option value="newest">Od najnowszych</option>
-    <option value="oldest">Od najstarszych</option>
-    <option value="rating">Najwyżej oceniane</option>
-    <option value="reviews">Najwięcej recenzji</option>
-  </select>
-</div>
-
-  <!-- LISTA KSIĄŻEK -->
-  <div class="book-grid">
-    <app-book-card *ngFor="let book of sortedBooks()" [book]="book"></app-book-card>
+    <button
+      *ngIf="selectedCategory"
+      type="button"
+      (click)="setCategory('')"
+    >
+      Wyczyść
+    </button>
   </div>
 
-  <!-- LOAD MORE -->
-  <div class="load-more-container">
-    <button (click)="loadMore()" [disabled]="loading" class="load-more-button">
-      {{ loading ? 'Ładowanie…' : 'Pokaż więcej' }}
+  <div class="search-controls">
+    <input
+      [(ngModel)]="searchTitle"
+      placeholder="Tytuł"
+      class="search-input"
+    />
+
+    <input
+      [(ngModel)]="searchAuthor"
+      placeholder="Autor"
+      class="search-input"
+    />
+
+    <button
+      type="button"
+      (click)="searchBooks()"
+      [disabled]="loading"
+      class="search-button"
+    >
+      Szukaj
+    </button>
+
+    <select [(ngModel)]="sortOption" class="sort-select">
+      <option value="titleAsc">Tytuł A-Z</option>
+      <option value="titleDesc">Tytuł Z-A</option>
+      <option value="authorAsc">Autor A-Z</option>
+      <option value="authorDesc">Autor Z-A</option>
+      <option value="newest">Od najnowszych</option>
+      <option value="oldest">Od najstarszych</option>
+      <option value="rating">Najwyżej oceniane</option>
+      <option value="reviews">Najwięcej recenzji</option>
+    </select>
+  </div>
+
+  <p *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </p>
+
+  <p *ngIf="loading && books.length === 0" class="loading-message">
+    Ładowanie książek...
+  </p>
+
+  <div class="book-grid">
+    <app-book-card
+      *ngFor="let book of sortedBooks()"
+      [book]="book"
+    ></app-book-card>
+  </div>
+
+  <div class="load-more-container" *ngIf="books.length > 0">
+    <button
+      type="button"
+      (click)="loadMore()"
+      [disabled]="loading"
+      class="load-more-button"
+    >
+      {{ loading ? 'Ładowanie...' : 'Pokaż więcej' }}
     </button>
   </div>
 </div>

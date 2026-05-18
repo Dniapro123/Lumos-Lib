@@ -1,34 +1,57 @@
-const axios = require('axios');
-require('dotenv').config();
+require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+
 const express = require('express');
 const cors = require('cors');
-const app = express();
+
 const authRoutes = require('./routes/auth');
 const booksRoutes = require('./routes/books');
-const PORT = process.env.PORT || 3000;
 const userRoutes = require('./routes/user');
 
-app.use(cors()); // Allow cross-origin requests
-app.use(express.json());
+const app = express();
+
+const PORT = process.env.PORT || 3000;
 const DEMO_MODE = process.env.DEMO_MODE === 'true';
 
-const blockDemoAuth = (req, res, next) => {
+app.use(cors());
+app.use(express.json());
+
+const blockDemoUserFeatures = (req, res, next) => {
   if (DEMO_MODE) {
     return res.status(403).json({
-      message: 'Logowanie i rejestracja są wyłączone w wersji demonstracyjnej.',
+      message:
+        'Logowanie, rejestracja oraz funkcje użytkownika są wyłączone w wersji demonstracyjnej.',
     });
   }
 
   next();
 };
 
-app.use('/api', userRoutes);
-app.use('/api/auth', blockDemoAuth, authRoutes);
+/**
+ * Public endpoints:
+ * - book search
+  * - featured books
+  * book details 
+ */
 app.use('/api/books', booksRoutes);
-const GOOGLE_BOOKS_API_BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 
+/**
+  * Protected endpoints (blocked in demo mode):
+  * - auth (login, register)
+  * user (profile, reviews, favorites)
+  * reviews (add, edit, delete)
+  * favorites (add, remove)
+ */
+app.use('/api/auth', blockDemoUserFeatures, authRoutes);
+app.use('/api', blockDemoUserFeatures, userRoutes);
 
-// Start the server after all routes are defined
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    demoMode: DEMO_MODE,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Demo mode: ${DEMO_MODE ? 'ON' : 'OFF'}`);
 });

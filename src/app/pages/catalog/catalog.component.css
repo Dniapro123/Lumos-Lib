@@ -13,7 +13,6 @@
   margin-bottom: 28px;
 }
 
-/* Kategorie */
 .cat-filters {
   display: flex;
   justify-content: center;
@@ -46,7 +45,6 @@
   box-shadow: 0 0 12px rgba(0, 200, 83, 0.35);
 }
 
-/* Wyszukiwarka */
 .search-controls {
   display: grid;
   grid-template-columns: repeat(4, minmax(160px, 1fr));
@@ -92,12 +90,33 @@
   transition: 0.2s ease;
 }
 
-.search-button:hover {
+.search-button:hover:not(:disabled) {
   background: #00e676;
   transform: translateY(-1px);
 }
 
-/* Siatka książek */
+.search-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  max-width: 900px;
+  margin: 0 auto 24px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 80, 80, 0.45);
+  border-radius: 10px;
+  background: rgba(255, 80, 80, 0.12);
+  color: #ffb3b3;
+  text-align: center;
+}
+
+.loading-message {
+  text-align: center;
+  color: #bdbdbd;
+  margin: 24px 0;
+}
+
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -105,7 +124,6 @@
   margin-top: 24px;
 }
 
-/* Load more */
 .load-more-container {
   display: flex;
   justify-content: center;
@@ -133,7 +151,6 @@
   cursor: not-allowed;
 }
 
-/* Mobile */
 @media (max-width: 768px) {
   .catalog-title {
     font-size: 28px;
